@@ -65,8 +65,8 @@ cd ..
 	--prefix=%{_prefix} \
 	--host=%{target} \
 	--build=%{_target_platform}
-%{__make} -C mingwex  
-%{__make} 
+%{__make} -C mingwex
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -75,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 	prefix=$RPM_BUILD_ROOT%{_prefix}
 
 %if %{!?debug:1}0
-%{target}-strip $RPM_BUILD_ROOT%{_bindir}/*.dll 
+%{target}-strip $RPM_BUILD_ROOT%{_bindir}/*.dll
 %{target}-strip -g $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
