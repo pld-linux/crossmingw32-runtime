@@ -16,6 +16,7 @@ Patch0:		%{name}-stdinc.patch
 Patch1:		%{name}-configure.patch
 URL:		http://www.mingw.org/
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	crossmingw32-binutils
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-w32api
@@ -56,10 +57,13 @@ MinGW32.
 %patch1 -p1
 
 %build
+cp /usr/share/automake/config.sub .
 %{__autoconf}
 cd mingwex
+cp /usr/share/automake/config.sub .
 %{__autoconf}
 cd ../profile
+cp /usr/share/automake/config.sub .
 %{__autoconf}
 cd ..
 ./configure \
