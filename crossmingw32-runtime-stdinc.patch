@@ -1,0 +1,33 @@
+--- mingw-runtime-3.0/mingwex/Makefile.in.wiget	2003-05-06 13:28:37.000000000 +0000
++++ mingw-runtime-3.0/mingwex/Makefile.in	2003-07-04 13:58:24.000000000 +0000
+@@ -78,7 +78,7 @@
+ 
+ W32API_INCLUDE = @W32API_INCLUDE@
+ INCLUDES = -I$(srcdir) -I$(srcdir)/../include \
+-  -nostdinc -nostdinc++ \
++  -nostdinc++ \
+   -iwithprefixbefore include
+ ALL_CFLAGS = $(CFLAGS) $(OPTFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
+ ALL_CXXFLAGS = $(CXXFLAGS) $(OPTFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
+--- mingw-runtime-3.0/profile/Makefile.in.wiget	2003-07-04 13:58:51.000000000 +0000
++++ mingw-runtime-3.0/profile/Makefile.in	2003-07-04 14:01:05.000000000 +0000
+@@ -49,7 +49,7 @@
+ 
+ W32API_INCLUDE = @W32API_INCLUDE@
+ INCLUDES = -I$(srcdir) -I$(srcdir)/../include \
+-  -nostdinc -nostdinc++ \
++  -nostdinc++ \
+   -iwithprefixbefore include
+ ALL_CFLAGS = $(CFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
+ ALL_CXXFLAGS = $(CXXFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
+--- mingw-runtime-3.0/Makefile.in.wiget	2003-05-06 16:01:51.000000000 +0000
++++ mingw-runtime-3.0/Makefile.in	2003-07-04 13:58:24.000000000 +0000
+@@ -98,7 +98,7 @@
+ W32API_INCLUDE = @W32API_INCLUDE@
+ INCLUDES+= -I$(srcdir)/include \
+   -I$(srcdir)/../include \
+-  -nostdinc -nostdinc++ \
++  -nostdinc++ \
+   -iwithprefixbefore include
+ ALL_CFLAGS = $(CFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
+ ALL_CXXFLAGS = $(CXXFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
