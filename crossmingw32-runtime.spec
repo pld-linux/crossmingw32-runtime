@@ -6,7 +6,7 @@ Version:	3.2
 #%%define	runsrc		mingw-runtime-%{version}-%{run_date}
 %define runver	%{version}
 %define	runsrc	mingw-runtime-%{runver}
-Release:	1
+Release:	2
 Epoch:		1
 License:	Free
 Group:		Development/Libraries
@@ -28,6 +28,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		target		i386-mingw32
 %define		target_platform i386-pc-mingw32
 %define		_prefix         /usr/%{target}
+%define		_libdir         %{_prefix}/lib
 
 # strip fails on static COFF files
 %define		no_install_post_strip 1
