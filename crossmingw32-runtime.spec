@@ -90,6 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc CONTRIBUTORS ChangeLog DISCLAIMER README TODO readme.txt
 %{_bindir}/*
 %{_includedir}/*
 %{_libdir}/*
