@@ -25,10 +25,10 @@ Requires:	crossmingw32-w32api >= 3.1
 Obsoletes:	crossmingw32-platform
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		target		i386-mingw32
-%define		target_platform i386-pc-mingw32
-%define		_prefix         /usr/%{target}
-%define		_libdir         %{_prefix}/lib
+%define		target			i386-mingw32
+%define		target_platform		i386-pc-mingw32
+%define		_prefix			/usr/%{target}
+%define		_libdir			%{_prefix}/lib
 
 # strip fails on static COFF files
 %define		no_install_post_strip 1
