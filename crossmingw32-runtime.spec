@@ -6,22 +6,26 @@ Version:	3.0
 #%%define	runsrc		mingw-runtime-%{version}-%{run_date}
 %define runver	%{version}
 %define	runsrc	mingw-runtime-%{runver}
-Release:	1
+Release:	2
 Epoch:		1
 License:	Free
 Group:		Development/Libraries
-# requires cross-gcc installed... loop. Use binaries (doesn't change much, I think).
-#Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
-Source0:	http://dl.sourceforge.net/mingw/%{runsrc}.tar.gz
-# Source0-md5:	50f4158d5354633926e63fe95591694a
+Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
+# Source0-md5:	3231a7d99d78665e0fb83c2f53f9f885
+Patch0:		%{name}-stdinc.patch
+Patch1:		%{name}-configure.patch
 URL:		http://www.mingw.org/
-ExclusiveArch:	%{ix86}
+BuildRequires:	crossmingw32-binutils
+BuildRequires:	crossmingw32-gcc
+BuildRequires:	crossmingw32-w32api
+Requires:	crossmingw32-binutils >= 2.14.90.0.4.1-2
+Requires:	crossmingw32-w32api >= 2.3-2
 Obsoletes:	crossmingw32-platform
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		target		i386-mingw32
 %define		target_platform i386-pc-mingw32
-%define		arch		%{_prefix}/%{target}
+%define		_prefix         /usr/%{target}
 
 # strip fails on static COFF files
 %define		no_install_post_strip 1
@@ -46,18 +50,40 @@ Ten pakiet zawiera pliki nag³ówkowe i biblioteki uruchomieniowe
 MinGW32.
 
 %prep
-%setup -q -c
+%setup -q -n %{runsrc}
+%patch0 -p1 -b .wiget
+%patch1 -p1
+
+%build
+%{__autoconf}
+cd mingwex
+%{__autoconf}
+cd ../profile
+%{__autoconf}
+cd ..
+./configure \
+	--prefix=%{_prefix} \
+	--host=%{target} \
+	--build=%{_target_platform}
+%{__make} -C mingwex  
+%{__make} 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{arch}/{bin,include,lib}
 
-cp -fa include/* $RPM_BUILD_ROOT%{arch}/include
-cp -fa lib/* bin/*.dll $RPM_BUILD_ROOT%{arch}/lib
+%{__make} install \
+	prefix=$RPM_BUILD_ROOT%{_prefix}
+
+%if %{!?debug:1}0
+%{target}-strip $RPM_BUILD_ROOT%{_bindir}/*.dll 
+%{target}-strip -g $RPM_BUILD_ROOT%{_libdir}/*.a
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{arch}
+%{_bindir}/*
+%{_includedir}/*
+%{_libdir}/*
