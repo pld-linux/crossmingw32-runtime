@@ -11,8 +11,8 @@ Epoch:		1
 License:	Free
 Group:		Development/Libraries
 # requires cross-gcc installed... loop. Use binaries (doesn't change much, I think).
-#Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/mingw/%{runsrc}-src.tar.gz
-Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/mingw/%{runsrc}.tar.gz
+#Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
+Source0:	http://dl.sourceforge.net/mingw/%{runsrc}.tar.gz
 URL:		http://www.mingw.org/
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -48,7 +48,7 @@ MinGW32.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{arch}/{include,lib}
+install -d $RPM_BUILD_ROOT%{arch}/{bin,include,lib}
 
 cp -fa include/* $RPM_BUILD_ROOT%{arch}/include
 cp -fa lib/* bin/*.dll $RPM_BUILD_ROOT%{arch}/lib
