@@ -15,6 +15,7 @@ Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
 Patch0:		%{name}-stdinc.patch
 Patch1:		%{name}-configure.patch
 URL:		http://www.mingw.org/
+BuildRequires:	autoconf
 BuildRequires:	crossmingw32-binutils
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-w32api
