@@ -1,17 +1,17 @@
 Summary:	Mingw32 Binary Utility Development Utilities - runtime libraries
 Summary(pl):	Zestaw narzêdzi mingw32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
-Version:	3.0
+Version:	3.1
 #%%define	run_date	20010604
 #%%define	runsrc		mingw-runtime-%{version}-%{run_date}
 %define runver	%{version}
 %define	runsrc	mingw-runtime-%{runver}
-Release:	2
+Release:	1
 Epoch:		1
 License:	Free
 Group:		Development/Libraries
 Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
-# Source0-md5:	3231a7d99d78665e0fb83c2f53f9f885
+# Source0-md5:	80a8eacd4dcb130bda42c42d35a4e564
 Patch0:		%{name}-stdinc.patch
 Patch1:		%{name}-configure.patch
 URL:		http://www.mingw.org/
@@ -19,7 +19,7 @@ BuildRequires:	crossmingw32-binutils
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-w32api
 Requires:	crossmingw32-binutils >= 2.14.90.0.4.1-2
-Requires:	crossmingw32-w32api >= 2.3-2
+Requires:	crossmingw32-w32api >= 2.4
 Obsoletes:	crossmingw32-platform
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
