@@ -13,6 +13,7 @@ Group:		Development/Libraries
 # requires cross-gcc installed... loop. Use binaries (doesn't change much, I think).
 #Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
 Source0:	http://dl.sourceforge.net/mingw/%{runsrc}.tar.gz
+# Source0-md5:	50f4158d5354633926e63fe95591694a
 URL:		http://www.mingw.org/
 ExclusiveArch:	%{ix86}
 Obsoletes:	crossmingw32-platform
