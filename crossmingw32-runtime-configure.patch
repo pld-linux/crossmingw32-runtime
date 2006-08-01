@@ -63,42 +63,25 @@
  AS=${AS-as}
 --- mingw-runtime-3.0/configure.in.wiget	2003-05-06 15:23:18.000000000 +0000
 +++ mingw-runtime-3.0/configure.in	2003-07-04 13:46:49.000000000 +0000
-@@ -26,15 +26,13 @@
- dnl itself.
+@@ -19,8 +19,6 @@
+ AC_PREREQ(2.59)
+ AC_INIT(dllmain.c)
  
- AC_DEFUN(LIB_AC_PROG_CC,
--[AC_BEFORE([$0], [AC_PROG_CPP])dnl
-+[
- AC_CHECK_TOOL(CC, gcc, gcc)
- if test -z "$CC"; then
-   AC_CHECK_PROG(CC, cc, cc, , , /usr/ucb/cc)
-   test -z "$CC" && AC_MSG_ERROR([no acceptable cc found in \$PATH])
- fi
- 
--AC_PROG_CC_GNU
+-LIB_AC_PROG_CC
 -
- if test $ac_cv_prog_gcc = yes; then
-   GCC=yes
- dnl Check whether -g works, even if CFLAGS is set, in case the package
-@@ -43,7 +41,6 @@
-   ac_test_CFLAGS="${CFLAGS+set}"
-   ac_save_CFLAGS="$CFLAGS"
-   CFLAGS=
--  AC_PROG_CC_G
-   if test "$ac_test_CFLAGS" = set; then
-     CFLAGS="$ac_save_CFLAGS"
-   elif test $ac_cv_prog_cc_g = yes; then
-@@ -69,8 +66,8 @@
+ case "$with_cross_host" in
+   ""|*cygwin*) all_dlls_host='all_dlls_host'
+ 	       install_dlls_host='install_dlls_host';;
+@@ -28,6 +26,8 @@
  AC_SUBST(all_dlls_host)
  AC_SUBST(install_dlls_host)
  
--AC_CHECK_TOOL(AR, ar, ar)
++AC_CHECK_TOOL(CC, gcc, gcc)
++AC_SUBST(CC)
+ AC_CHECK_TOOL(AR, ar, ar)
  
-+AC_CHECK_TOOL(AR, ar, ar)
  AC_SUBST(AR)
- AC_CHECK_TOOL(AS, as, as)
- AC_SUBST(AS)
-@@ -84,10 +81,11 @@
+@@ -43,10 +43,10 @@
  AC_SUBST(DLLWRAP)
  AC_CHECK_TOOL(WINDRES, windres, windres)
  AC_SUBST(WINDRES)
@@ -106,9 +89,8 @@
 +AC_SUBST(CFLAGS)
  
 -AC_ALLOCA
-+dnl AC_ALLOCA
  
 -AC_CANONICAL_SYSTEM
- SUBDIRS="profile mingwex"
- configdirs="profile mingwex"
+ AC_CONFIG_SUBDIRS(profile mingwex)
  HEADER_SUBDIR=""
+ 
