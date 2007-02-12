@@ -1,5 +1,5 @@
 Summary:	Mingw32 Binary Utility Development Utilities - runtime libraries
-Summary(pl):	Zestaw narzêdzi mingw32 - biblioteki uruchomieniowe
+Summary(pl.UTF-8):   Zestaw narzÄ™dzi mingw32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
 Version:	3.10
 %define runver	%{version}
@@ -41,14 +41,14 @@ with supporting Win32 libraries in 'coff' format from free sources.
 
 This package contains MinGW32 runtime includes and libraries.
 
-%description -l pl
-crossmingw32 jest kompletnym systemem do kompilacji skro¶nej,
-pozwalaj±cym budowaæ aplikacje MS Windows pod Linuksem u¿ywaj±c
-bibliotek mingw32. System sk³ada siê z binutils, gcc z g++ i objc,
-libstdc++ - wszystkie generuj±ce kod dla platformy i386-mingw32, oraz
+%description -l pl.UTF-8
+crossmingw32 jest kompletnym systemem do kompilacji skroÅ›nej,
+pozwalajÄ…cym budowaÄ‡ aplikacje MS Windows pod Linuksem uÅ¼ywajÄ…c
+bibliotek mingw32. System skÅ‚ada siÄ™ z binutils, gcc z g++ i objc,
+libstdc++ - wszystkie generujÄ…ce kod dla platformy i386-mingw32, oraz
 z bibliotek w formacie COFF.
 
-Ten pakiet zawiera pliki nag³ówkowe i biblioteki uruchomieniowe
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe i biblioteki uruchomieniowe
 MinGW32.
 
 %prep
