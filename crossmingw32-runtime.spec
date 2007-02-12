@@ -1,5 +1,5 @@
 Summary:	Mingw32 Binary Utility Development Utilities - runtime libraries
-Summary(pl.UTF-8):   Zestaw narzędzi mingw32 - biblioteki uruchomieniowe
+Summary(pl.UTF-8):	Zestaw narzędzi mingw32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
 Version:	3.10
 %define runver	%{version}
