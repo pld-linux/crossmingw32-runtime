@@ -61,17 +61,8 @@
  CC=${CC-cc}
  AC_SUBST(CC)
  AS=${AS-as}
---- mingw-runtime-3.0/configure.in.wiget	2003-05-06 15:23:18.000000000 +0000
-+++ mingw-runtime-3.0/configure.in	2003-07-04 13:46:49.000000000 +0000
-@@ -19,8 +19,6 @@
- AC_PREREQ(2.59)
- AC_INIT(dllmain.c)
- 
--LIB_AC_PROG_CC
--
- case "$with_cross_host" in
-   ""|*cygwin*) all_dlls_host='all_dlls_host'
- 	       install_dlls_host='install_dlls_host';;
+--- mingw-runtime-3.11/configure.in.wiget	2003-05-06 15:23:18.000000000 +0000
++++ mingw-runtime-3.11/configure.in	2003-07-04 13:46:49.000000000 +0000
 @@ -28,6 +26,8 @@
  AC_SUBST(all_dlls_host)
  AC_SUBST(install_dlls_host)
@@ -81,16 +72,3 @@
  AC_CHECK_TOOL(AR, ar, ar)
  
  AC_SUBST(AR)
-@@ -43,10 +43,10 @@
- AC_SUBST(DLLWRAP)
- AC_CHECK_TOOL(WINDRES, windres, windres)
- AC_SUBST(WINDRES)
-+AC_CANONICAL_SYSTEM
-+AC_SUBST(CFLAGS)
- 
--AC_ALLOCA
- 
--AC_CANONICAL_SYSTEM
- AC_CONFIG_SUBDIRS(profile mingwex)
- HEADER_SUBDIR=""
- 

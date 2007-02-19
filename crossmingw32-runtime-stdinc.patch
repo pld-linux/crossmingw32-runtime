@@ -9,17 +9,16 @@ diff -urN mingw-runtime-3.5.orig/Makefile.in mingw-runtime-3.5/Makefile.in
    -iwithprefixbefore include
  ALL_CFLAGS = $(CFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
  ALL_CXXFLAGS = $(CXXFLAGS) $(W32API_INCLUDE) $(INCLUDES) -nostdinc++ $(MNO_CYGWIN)
-diff -urN mingw-runtime-3.5.orig/mingwex/Makefile.in mingw-runtime-3.5/mingwex/Makefile.in
---- mingw-runtime-3.5.orig/mingwex/Makefile.in	2004-09-05 16:20:28.000000000 +0200
-+++ mingw-runtime-3.5/mingwex/Makefile.in	2004-09-11 22:31:02.780888432 +0200
-@@ -85,7 +85,6 @@
+--- mingw-runtime-3.11/mingwex/Makefile.in.orig	2007-02-19 22:27:01.698642398 +0100
++++ mingw-runtime-3.11/mingwex/Makefile.in	2007-02-19 22:28:17.074937847 +0100
+@@ -105,7 +105,6 @@
  
  W32API_INCLUDE = @W32API_INCLUDE@
- INCLUDES = -I$(srcdir) -I$(srcdir)/../include \
+ INCLUDES = -I$(srcdir) -I$(srcdir)/.. -I$(srcdir)/../include \
 -  -nostdinc \
    -iwithprefixbefore include
- ALL_CFLAGS = $(CFLAGS) $(OPTFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
- ALL_CXXFLAGS = $(CXXFLAGS) $(OPTFLAGS) $(W32API_INCLUDE) $(INCLUDES) -nostdinc++ $(MNO_CYGWIN)
+ ALL_CFLAGS = $(CFLAGS) $(WARNFLAGS) $(OPTFLAGS) $(W32API_INCLUDE) $(INCLUDES) $(MNO_CYGWIN)
+ ALL_CXXFLAGS = $(CXXFLAGS) $(WARNFLAGS) $(OPTFLAGS) $(W32API_INCLUDE) $(INCLUDES) -nostdinc++ $(MNO_CYGWIN)
 diff -urN mingw-runtime-3.5.orig/profile/Makefile.in mingw-runtime-3.5/profile/Makefile.in
 --- mingw-runtime-3.5.orig/profile/Makefile.in	2004-09-05 15:37:02.000000000 +0200
 +++ mingw-runtime-3.5/profile/Makefile.in	2004-09-11 22:31:27.078194680 +0200
