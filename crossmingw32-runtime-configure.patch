@@ -61,14 +61,3 @@
  CC=${CC-cc}
  AC_SUBST(CC)
  AS=${AS-as}
---- mingw-runtime-3.11/configure.in.wiget	2003-05-06 15:23:18.000000000 +0000
-+++ mingw-runtime-3.11/configure.in	2003-07-04 13:46:49.000000000 +0000
-@@ -28,6 +26,8 @@
- AC_SUBST(all_dlls_host)
- AC_SUBST(install_dlls_host)
- 
-+AC_CHECK_TOOL(CC, gcc, gcc)
-+AC_SUBST(CC)
- AC_CHECK_TOOL(AR, ar, ar)
- 
- AC_SUBST(AR)
