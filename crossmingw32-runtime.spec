@@ -1,17 +1,16 @@
 Summary:	Mingw32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi mingw32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
-Version:	3.13
+Version:	3.16
 %define runver	%{version}
-%define	runsrc	mingw-runtime-%{runver}
+%define	runsrc	mingwrt-%{runver}-mingw32
 Release:	1
 Epoch:		1
 License:	Free
 Group:		Development/Libraries
 Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
-# Source0-md5:	f7f61ed33e1bd485e97a765c7945cb2a
+# Source0-md5:	d56a0712cd4c70a46c27fc20b92ea2c3
 Patch0:		%{name}-stdinc.patch
-Patch1:		%{name}-configure.patch
 URL:		http://www.mingw.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -53,20 +52,12 @@ MinGW32.
 
 %prep
 %setup -q -n %{runsrc}
-dos2unix Makefile.in configure.in mkinstalldirs */Makefile.in */configure.in
+dos2unix Makefile.in configure.in mkinstalldirs */Makefile.in
 %patch0 -p1 
-%patch1 -p1
 
 %build
 cp /usr/share/automake/config.sub .
 %{__autoconf}
-cd mingwex
-cp /usr/share/automake/config.sub .
-%{__autoconf}
-cd ../profile
-cp /usr/share/automake/config.sub .
-%{__autoconf}
-cd ..
 ./configure \
 	--prefix=%{_prefix} \
 	--host=%{target} \
@@ -77,6 +68,8 @@ cd ..
 %install
 rm -rf $RPM_BUILD_ROOT
 
+# makefile expects dir before creating it
+install -d $RPM_BUILD_ROOT%{_prefix}/bin
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix}
 
