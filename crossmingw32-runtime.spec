@@ -1,7 +1,7 @@
 Summary:	Mingw32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi mingw32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
-Version:	3.16
+Version:	3.18
 %define runver	%{version}
 %define	runsrc	mingwrt-%{runver}-mingw32
 Release:	1
@@ -9,7 +9,7 @@ Epoch:		1
 License:	Free
 Group:		Development/Libraries
 Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
-# Source0-md5:	d56a0712cd4c70a46c27fc20b92ea2c3
+# Source0-md5:	34b54cb3379f871f0dcd5c20b69b0350
 Patch0:		%{name}-stdinc.patch
 URL:		http://www.mingw.org/
 BuildRequires:	autoconf
@@ -84,6 +84,19 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CONTRIBUTORS ChangeLog DISCLAIMER README TODO readme.txt
-%{_bindir}/*
-%{_includedir}/*
-%{_libdir}/*
+%{_bindir}/mingwm10.dll
+%{_includedir}/*.h
+%{_includedir}/sys
+%{_libdir}/CRT_*.o
+%{_libdir}/binmode.o
+%{_libdir}/crt*.o
+%{_libdir}/dllcrt*.o
+%{_libdir}/gcrt*.o
+%{_libdir}/txtmode.o
+%{_libdir}/libcoldname.a
+%{_libdir}/libcrtdll.a
+%{_libdir}/libgmon.a
+%{_libdir}/libm.a
+%{_libdir}/libmingw*.a
+%{_libdir}/libmoldname*.a
+%{_libdir}/libmsvcr*.a
