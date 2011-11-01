@@ -1,15 +1,15 @@
 Summary:	MinGW32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi MinGW32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
-Version:	3.18
+Version:	3.20
 %define runver	%{version}
 %define	runsrc	mingwrt-%{runver}-mingw32
 Release:	1
 Epoch:		1
 License:	Free
 Group:		Development/Libraries
-Source0:	http://dl.sourceforge.net/mingw/%{runsrc}-src.tar.gz
-# Source0-md5:	34b54cb3379f871f0dcd5c20b69b0350
+Source0:	http://downloads.sourceforge.net/mingw/%{runsrc}-src.tar.gz
+# Source0-md5:	26c0886cc60729b94956cc6d81cd076c
 Patch0:		%{name}-stdinc.patch
 URL:		http://www.mingw.org/
 BuildRequires:	autoconf
@@ -77,6 +77,8 @@ install -d $RPM_BUILD_ROOT%{_prefix}/bin
 %{target}-strip $RPM_BUILD_ROOT%{_bindir}/*.dll
 %{target}-strip -g $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
+
+%{__rm} -r $RPM_BUILD_ROOT%{_mandir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
