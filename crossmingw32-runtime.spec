@@ -27,6 +27,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		target_platform		i386-pc-mingw32
 %define		_prefix			/usr/%{target}
 %define		_libdir			%{_prefix}/lib
+%define		_dlldir			/usr/share/wine/windows/system
 
 # strip fails on static COFF files
 %define		no_install_post_strip 1
@@ -50,6 +51,17 @@ z bibliotek w formacie COFF.
 Ten pakiet zawiera pliki nagłówkowe i biblioteki uruchomieniowe
 MinGW32.
 
+%package dll
+Summary:	MinGW32 runtime DLL library for Windows
+Summary(pl.UTF-8):	Biblioteka uruchomieniowa MingW32 DLL dla Windows
+Group:		Applications/Emulators
+
+%description dll
+MinGW32 runtime DLL library for Windows.
+
+%description dll -l pl.UTF-8
+Biblioteka uruchomieniowa MingW32 DLL dla Windows.
+
 %prep
 %setup -q -n %{runsrc}
 dos2unix Makefile.in configure.in mkinstalldirs */Makefile.in
@@ -69,12 +81,13 @@ cp /usr/share/automake/config.sub .
 rm -rf $RPM_BUILD_ROOT
 
 # makefile expects dir before creating it
-install -d $RPM_BUILD_ROOT%{_prefix}/bin
+install -d $RPM_BUILD_ROOT{%{_prefix}/bin,%{_dlldir}}
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix}
 
+mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %if %{!?debug:1}0
-%{target}-strip $RPM_BUILD_ROOT%{_bindir}/*.dll
+%{target}-strip $RPM_BUILD_ROOT%{_dlldir}/*.dll
 %{target}-strip -g $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
@@ -86,8 +99,53 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CONTRIBUTORS ChangeLog DISCLAIMER README TODO readme.txt
-%{_bindir}/mingwm10.dll
-%{_includedir}/*.h
+%{_includedir}/_mingw.h
+%{_includedir}/assert.h
+%{_includedir}/complex.h
+%{_includedir}/conio.h
+%{_includedir}/ctype.h
+%{_includedir}/dir.h
+%{_includedir}/direct.h
+%{_includedir}/dirent.h
+%{_includedir}/dos.h
+%{_includedir}/errno.h
+%{_includedir}/excpt.h
+%{_includedir}/fcntl.h
+%{_includedir}/fenv.h
+%{_includedir}/float.h
+%{_includedir}/getopt.h
+%{_includedir}/gmon.h
+%{_includedir}/inttypes.h
+%{_includedir}/io.h
+%{_includedir}/libgen.h
+%{_includedir}/limits.h
+%{_includedir}/locale.h
+%{_includedir}/malloc.h
+%{_includedir}/math.h
+%{_includedir}/mbctype.h
+%{_includedir}/mbstring.h
+%{_includedir}/mem.h
+%{_includedir}/memory.h
+%{_includedir}/process.h
+%{_includedir}/profil.h
+%{_includedir}/profile.h
+%{_includedir}/search.h
+%{_includedir}/setjmp.h
+%{_includedir}/share.h
+%{_includedir}/signal.h
+%{_includedir}/stdint.h
+%{_includedir}/stdio.h
+%{_includedir}/stdlib.h
+%{_includedir}/string.h
+%{_includedir}/strings.h
+%{_includedir}/tchar.h
+%{_includedir}/time.h
+%{_includedir}/unistd.h
+%{_includedir}/utime.h
+%{_includedir}/values.h
+%{_includedir}/varargs.h
+%{_includedir}/wchar.h
+%{_includedir}/wctype.h
 %{_includedir}/sys
 %{_libdir}/CRT_*.o
 %{_libdir}/binmode.o
@@ -102,3 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libmingw*.a
 %{_libdir}/libmoldname*.a
 %{_libdir}/libmsvcr*.a
+
+%files dll
+%defattr(644,root,root,755)
+%{_dlldir}/mingwm10.dll
