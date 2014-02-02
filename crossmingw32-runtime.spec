@@ -11,7 +11,8 @@ Source0:	http://downloads.sourceforge.net/mingw/mingwrt-%{version}-1-mingw32-src
 Source1:	http://www.opengl.org/registry/api/GL/glext.h
 Source2:	http://www.opengl.org/registry/api/GL/wglext.h
 Patch0:		%{name}-format.patch
-Patch1:		crossmingw32-w32api-mmsystem.patch
+Patch1:		%{name}-mingwex.patch
+Patch2:		crossmingw32-w32api-mmsystem.patch
 URL:		http://www.mingw.org/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake
@@ -113,6 +114,7 @@ DirectX z API Win32 dla MinGW.
 dos2unix Makefile.in configure.ac */Makefile.in
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cp /usr/share/automake/config.sub .

@@ -1,0 +1,16 @@
+--- mingwrt-4.0.3-1-mingw32-src/Makefile.in.orig	2014-02-02 18:03:41.175040421 +0100
++++ mingwrt-4.0.3-1-mingw32-src/Makefile.in	2014-02-02 19:00:35.888230453 +0100
+@@ -753,11 +753,11 @@
+ 	$(CC) -c $(CPPFLAGS) $(ALL_CFLAGS) -o $@ $<
+ 
+ SRCDIR := src/libcrt/math
+-$(SRCDIR)/%f.o: $(SRCDIR)/%.c
++$(SRCDIR)/asinhf.o : $(SRCDIR)/%f.o: $(SRCDIR)/%.c
+ 	$(MKDIR_P) $(@D)
+ 	$(CC) -c -D FUNCTION=$(@F:.o=) $(CPPFLAGS) $(ALL_CFLAGS) -o $@ $<
+ 
+-$(SRCDIR)/%l.o: $(SRCDIR)/%.c
++$(SRCDIR)/asinhl.o : $(SRCDIR)/%l.o: $(SRCDIR)/%.c
+ 	$(MKDIR_P) $(@D)
+ 	$(CC) -c -D FUNCTION=$(@F:.o=) $(CPPFLAGS) $(ALL_CFLAGS) -o $@ $<
+ 
