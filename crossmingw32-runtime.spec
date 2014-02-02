@@ -128,7 +128,7 @@ cp /usr/share/automake/config.sub .
 rm -rf $RPM_BUILD_ROOT
 
 # makefile expects dir before creating it
-install -d $RPM_BUILD_ROOT%{_includedir}
+install -d $RPM_BUILD_ROOT%{_includedir}/GL
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
