@@ -8,23 +8,3 @@
    -iwithprefixbefore include
  ALL_CFLAGS = $(CFLAGS) $(INCLUDES) $(W32API_INCLUDE)
  ALL_CXXFLAGS = $(CXXFLAGS) $(INCLUDES) -nostdinc++ $(W32API_INCLUDE)
---- mingwrt-3.16-mingw32/mingwex/Makefile.in.org	2009-08-23 02:22:58.068380312 +0200
-+++ mingwrt-3.16-mingw32/mingwex/Makefile.in	2009-08-23 02:23:04.203630108 +0200
-@@ -128,7 +128,6 @@
- 
- W32API_INCLUDE = @W32API_INCLUDE@
- INCLUDES = -I${srcdir} -I${top_srcdir} -I${top_srcdir}/include \
--  -nostdinc \
-   -iwithprefixbefore include
- ALL_CFLAGS = $(CFLAGS) $(WARNFLAGS) $(OPTFLAGS) $(INCLUDES) $(W32API_INCLUDE)
- ALL_CXXFLAGS = $(CXXFLAGS) $(WARNFLAGS) $(OPTFLAGS) $(INCLUDES) -nostdinc++ $(W32API_INCLUDE)
---- mingwrt-3.16-mingw32/profile/Makefile.in.org	2009-08-23 02:23:13.505506761 +0200
-+++ mingwrt-3.16-mingw32/profile/Makefile.in	2009-08-23 02:23:18.573631831 +0200
-@@ -67,7 +67,6 @@
- 
- W32API_INCLUDE = @W32API_INCLUDE@
- INCLUDES = -I${srcdir} -I${top_srcdir}/include \
--  -nostdinc \
-   -iwithprefixbefore include
- ALL_CFLAGS = $(CFLAGS) $(INCLUDES) $(W32API_INCLUDE)
- ALL_CXXFLAGS = $(CXXFLAGS) $(INCLUDES) -nostdinc++ $(W32API_INCLUDE)
