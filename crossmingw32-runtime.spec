@@ -141,6 +141,8 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %{target}-strip -g $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
+cp -p %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/GL
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
