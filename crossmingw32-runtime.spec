@@ -13,6 +13,7 @@ Source2:	http://www.opengl.org/registry/api/GL/wglext.h
 Patch0:		%{name}-format.patch
 Patch1:		%{name}-mingwex.patch
 Patch2:		crossmingw32-w32api-mmsystem.patch
+Patch3:		crossmingw32-w32api-commctrl.patch
 URL:		http://www.mingw.org/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake
@@ -115,6 +116,7 @@ dos2unix Makefile.in configure.ac */Makefile.in
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 cp /usr/share/automake/config.sub .
