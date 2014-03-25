@@ -2,7 +2,7 @@ Summary:	MinGW32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi MinGW32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
 Version:	4.0.3
-Release:	2
+Release:	3
 Epoch:		1
 License:	BSD-like
 Group:		Development/Libraries
@@ -129,15 +129,14 @@ cp /usr/share/automake/config.sub .
 	--libdir=%{_libdir} \
 	--host=%{target} \
 	--build=%{_target_platform}
-%{__make}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 # makefile expects dir before creating it
 install -d $RPM_BUILD_ROOT%{_includedir}/GL
 
-%{__make} install \
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
