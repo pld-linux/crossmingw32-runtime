@@ -1,0 +1,37 @@
+--- include/winnt.h	2013-08-31 12:40:55.422343650 +0200
++++ include/winnt.h	2013-08-31 12:43:39.036686882 +0200
+@@ -107,6 +107,11 @@
+ #endif
+ typedef void* __ptr64 PVOID64;
+ 
++#ifndef _ERRCODE_DEFINED
++#define _ERRCODE_DEFINED
++typedef int errno_t;
++#endif
++
+ #ifndef _WCHAR_T_DEFINED
+ #define _WCHAR_T_DEFINED
+ #ifndef _WCHAR_T_
+--- include/stdlib.h	2013-08-31 12:27:41.321139008 +0200
++++ include/stdlib.h	2013-08-31 12:35:18.970541797 +0200
+@@ -232,6 +232,10 @@
+ _CRTIMP int __cdecl __MINGW_NOTHROW rand (void);
+ _CRTIMP void __cdecl __MINGW_NOTHROW srand (unsigned int);
+ 
++#if defined (_CRT_RAND_S) && (WINVER >= 0x0501)
++_CRTIMP errno_t __cdecl __MINGW_NOTHROW rand_s (unsigned int*);
++#endif
++
+ _CRTIMP void* __cdecl __MINGW_NOTHROW calloc (size_t, size_t) __MINGW_ATTRIB_MALLOC;
+ _CRTIMP void* __cdecl __MINGW_NOTHROW malloc (size_t) __MINGW_ATTRIB_MALLOC;
+ _CRTIMP void* __cdecl __MINGW_NOTHROW realloc (void*, size_t);
+--- lib/lib32/msvcrt.def.in	2013-08-31 12:45:45.477904906 +0200
++++ lib/lib32/msvcrt.def.in	2013-08-31 12:47:45.044353824 +0200
+@@ -637,6 +637,7 @@
+ qsort
+ raise
+ rand
++rand_s
+ realloc
+ remove
+ rename

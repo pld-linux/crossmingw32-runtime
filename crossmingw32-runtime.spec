@@ -2,7 +2,7 @@ Summary:	MinGW32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi MinGW32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
 Version:	4.0.3
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD-like
 Group:		Development/Libraries
@@ -14,6 +14,8 @@ Patch0:		%{name}-format.patch
 Patch1:		%{name}-mingwex.patch
 Patch2:		crossmingw32-w32api-mmsystem.patch
 Patch3:		crossmingw32-w32api-commctrl.patch
+# http://sourceforge.net/p/mingw/bugs/2122/
+Patch4:		rand_s-mingw.patch
 URL:		http://www.mingw.org/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake
@@ -117,6 +119,7 @@ dos2unix Makefile.in configure.ac */Makefile.in
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0
 
 %build
 cp /usr/share/automake/config.sub .
