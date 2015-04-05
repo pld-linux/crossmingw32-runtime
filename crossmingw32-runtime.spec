@@ -2,7 +2,7 @@ Summary:	MinGW32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi MinGW32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
 Version:	4.0.3
-Release:	3
+Release:	4
 Epoch:		1
 License:	BSD-like
 Group:		Development/Libraries
