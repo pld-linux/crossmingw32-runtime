@@ -1,25 +1,34 @@
 Summary:	MinGW32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi MinGW32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
-Version:	3.20.2
-%define runver	3.20-2
+Version:	3.22.4
+%define	apiver	3.18.2
+%define	apisrc	w32api-%{apiver}-mingw32
+%define runver	%{version}
 %define	runsrc	mingwrt-%{runver}-mingw32
 Release:	1
 Epoch:		1
-License:	Free
+License:	Public Domain
 Group:		Development/Libraries
-Source0:	http://downloads.sourceforge.net/mingw/%{runsrc}-src.tar.lzma
-# Source0-md5:	428174262d9b9c201a2180490d629b8a
-Patch0:		%{name}-stdinc.patch
+Source0:	http://downloads.sourceforge.net/mingw/%{runsrc}-src.tar.xz
+# Source0-md5:	efa617e408ffb66b292f8f8145d86fa1
+# only for headers
+Source1:	http://downloads.sourceforge.net/mingw/%{apisrc}-src.tar.xz
+# Source1-md5:	e891339f9460c1164583a43335269416
+Patch0:		%{name}-gawk.patch
 URL:		http://www.mingw.org/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake
 BuildRequires:	crossmingw32-binutils
 BuildRequires:	crossmingw32-gcc
-BuildRequires:	crossmingw32-w32api
+# 3.22.x relies on w32 sources available at build time
+#BuildRequires:	crossmingw32-w32api 1:%{apiver}
 BuildRequires:	dos2unix
+BuildRequires:	gawk
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires:	crossmingw32-binutils >= 2.15.91.0.2-2
-Requires:	crossmingw32-w32api >= 3.1
+Requires:	crossmingw32-w32api >= 1:%{apiver}
 Obsoletes:	crossmingw32-platform
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -31,6 +40,14 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # strip fails on static COFF files
 %define		no_install_post_strip 1
+
+%define		filterout_ld	-Wl,-z,.*
+%define		filterout_c	-gdwarf-3 -fstack-protector.*
+
+%ifnarch %{ix86} %{x8664} x32
+# arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
+%define		optflags	-O2
+%endif
 
 %description
 crossmingw32 is a complete cross-compiling development system for
@@ -63,42 +80,44 @@ MinGW32 runtime DLL library for Windows.
 Biblioteka uruchomieniowa MingW32 DLL dla Windows.
 
 %prep
-%setup -q -n %{runsrc}
-dos2unix Makefile.in configure.in mkinstalldirs */Makefile.in
+%setup -q -c -a1
+ln -snf w32api-%{apiver} w32api
+ln -snf mingwrt-%{runver} mingwrt
+cd mingwrt
 %patch0 -p1 
 
 %build
+cd mingwrt
 cp /usr/share/automake/config.sub .
 %{__autoconf}
 ./configure \
+	CFLAGS="%{rpmcflags}" \
+	LDFLAGS="%{rpmldflags}" \
 	--prefix=%{_prefix} \
 	--host=%{target} \
 	--build=%{_target_platform}
-%{__make} -C mingwex
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_dlldir}
 
-# makefile expects dir before creating it
-install -d $RPM_BUILD_ROOT{%{_prefix}/bin,%{_dlldir}}
-%{__make} install \
+%{__make} -C mingwrt install \
 	prefix=$RPM_BUILD_ROOT%{_prefix}
 
-mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+%{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+
 %if %{!?debug:1}0
 %{target}-strip $RPM_BUILD_ROOT%{_dlldir}/*.dll
 %{target}-strip -g $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
-
-%{__rm} -r $RPM_BUILD_ROOT%{_mandir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CONTRIBUTORS ChangeLog DISCLAIMER README TODO readme.txt
+%doc mingwrt/{CONTRIBUTORS,ChangeLog,DISCLAIMER,README,TODO,readme.txt}
 %{_includedir}/_mingw.h
 %{_includedir}/assert.h
 %{_includedir}/complex.h
@@ -107,6 +126,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/dir.h
 %{_includedir}/direct.h
 %{_includedir}/dirent.h
+%{_includedir}/dlfcn.h
 %{_includedir}/dos.h
 %{_includedir}/errno.h
 %{_includedir}/excpt.h
@@ -114,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/fenv.h
 %{_includedir}/float.h
 %{_includedir}/getopt.h
+%{_includedir}/glob.h
 %{_includedir}/gmon.h
 %{_includedir}/inttypes.h
 %{_includedir}/io.h
@@ -126,6 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/mbstring.h
 %{_includedir}/mem.h
 %{_includedir}/memory.h
+%{_includedir}/msvcrtver.h
 %{_includedir}/process.h
 %{_includedir}/profil.h
 %{_includedir}/profile.h
@@ -143,7 +165,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/unistd.h
 %{_includedir}/utime.h
 %{_includedir}/values.h
-%{_includedir}/varargs.h
 %{_includedir}/wchar.h
 %{_includedir}/wctype.h
 %{_includedir}/sys

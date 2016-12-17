@@ -1,0 +1,39 @@
+gensub() is gawk specific extension
+--- mingwrt-3.22.4/Makefile.in.orig	2016-12-17 11:00:24.739209274 +0100
++++ mingwrt-3.22.4/Makefile.in	2016-12-17 14:15:23.239075699 +0100
+@@ -261,7 +261,7 @@
+ # of the following enumerated versions from the MSVC suite.
+ #
+ msvcrt_versions := 70 71 80 90 100
+-msvcrt_version_script = echo $1 | awk '\
++msvcrt_version_script = echo $1 | gawk '\
+   { printf "0x%03d00000", gensub( "^[^1-9]*([0-9]*).*", "\\\\1", 1 ) \
+   }'
+ 
+@@ -271,7 +271,7 @@
+        $(AR) $(ARFLAGS) $1 $(call extra_objects_filter,$2); \
+      }
+ 
+-msvcrt_dllname_script = echo $1 | awk '\
++msvcrt_dllname_script = echo $1 | gawk '\
+   /^c/{ print "crtdll.dll" } \
+   /^m/{ ext = gsub( "^.*d$$", "&" ) ? "d.dll" : ".dll"; \
+ 	printf "msvcr%s%s", gsub( "^[^1-9]*[0-9]+.*", "&" ) \
+@@ -548,7 +548,7 @@
+ # Makefile.stub, by processing each of their defining header files
+ # through the following awk script...
+ #
+-jmpstub_awk_script = test -z "$1" || awk '\
++jmpstub_awk_script = test -z "$1" || gawk '\
+   BEGIN { \
+     symbol = "([A-Z_a-z][A-Z_a-z0-9]*)"; \
+     fmt = "\nlib%s.a: %s\n%s: jmpstub.sx\n\t$$(COMPILE.sx) %s -o $$@ $$^\n"; \
+@@ -569,7 +569,7 @@
+ # ...while this establishes the dependencies which apply for each
+ # of those in the LIBIMPL class.
+ #
+-libimpl_awk_script = test -z "$1" || awk '\
++libimpl_awk_script = test -z "$1" || gawk '\
+   BEGIN { \
+     symbol = "([A-Z_a-z][A-Z_a-z0-9]*)"; \
+     fmt = "\nlib%s.a: %s\n%s.libimpl: %s\n"; \
