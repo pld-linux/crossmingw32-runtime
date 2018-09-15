@@ -1,10 +1,11 @@
---- mingwrt-3.16-mingw32/Makefile.in.org	2009-08-23 02:15:25.799505624 +0200
-+++ mingwrt-3.16-mingw32/Makefile.in	2009-08-23 02:15:37.278392489 +0200
-@@ -166,7 +166,6 @@
- W32API_INCLUDE = @W32API_INCLUDE@
- INCLUDES = -I$(srcdir)/include \
-   -I$(srcdir)/../include \
--  -nostdinc \
-   -iwithprefixbefore include
- ALL_CFLAGS = $(CFLAGS) $(INCLUDES) $(W32API_INCLUDE)
- ALL_CXXFLAGS = $(CXXFLAGS) $(INCLUDES) -nostdinc++ $(W32API_INCLUDE)
+--- mingwrt-5.0.2/Makefile.in.orig	2018-09-14 22:48:42.856975076 +0200
++++ mingwrt-5.0.2/Makefile.in	2018-09-14 22:49:42.900307722 +0200
+@@ -123,7 +123,7 @@
+ #
+ sinclude *.d
+ DEPFLAGS = -MD -MP
+-INCLUDES = -nostdinc -I . -I ${top_srcdir}/include -I ${w32api_srcdir}/include \
++INCLUDES = -I . -I ${top_srcdir}/include -I ${w32api_srcdir}/include \
+   -I ${top_srcdir} -I ${top_srcdir}/profile -iwithprefixbefore include
+ 
+ ALL_CFLAGS = $(CFLAGS) $(DEPFLAGS) $(INCLUDES) $(NTDDI_VERSION_SPEC)

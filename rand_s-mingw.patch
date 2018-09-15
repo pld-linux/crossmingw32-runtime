@@ -1,37 +1,26 @@
---- include/winnt.h	2013-08-31 12:40:55.422343650 +0200
-+++ include/winnt.h	2013-08-31 12:43:39.036686882 +0200
-@@ -107,6 +107,11 @@
+--- include/sys/types.h.orig	2017-07-09 22:38:20.000000000 +0200
++++ include/sys/types.h	2018-09-14 22:18:03.620329409 +0200
+@@ -222,5 +222,10 @@
  #endif
- typedef void* __ptr64 PVOID64;
+ #endif  /* _SYS_TYPES_H normal inclusion */
  
 +#ifndef _ERRCODE_DEFINED
 +#define _ERRCODE_DEFINED
 +typedef int errno_t;
 +#endif
 +
- #ifndef _WCHAR_T_DEFINED
- #define _WCHAR_T_DEFINED
- #ifndef _WCHAR_T_
---- include/stdlib.h	2013-08-31 12:27:41.321139008 +0200
-+++ include/stdlib.h	2013-08-31 12:35:18.970541797 +0200
-@@ -232,6 +232,10 @@
- _CRTIMP int __cdecl __MINGW_NOTHROW rand (void);
- _CRTIMP void __cdecl __MINGW_NOTHROW srand (unsigned int);
+ #endif	/* ! RC_INVOKED */
+ #endif	/* !_SYS_TYPES_H: $RCSfile: types.h,v $: end of file */
+--- include/stdlib.h.orig	2018-09-14 22:19:47.526994890 +0200
++++ include/stdlib.h	2018-09-14 22:20:54.966994122 +0200
+@@ -481,6 +481,10 @@
+ _CRTIMP __cdecl __MINGW_NOTHROW  int rand (void);
+ _CRTIMP __cdecl __MINGW_NOTHROW  void srand (unsigned int);
  
 +#if defined (_CRT_RAND_S) && (WINVER >= 0x0501)
-+_CRTIMP errno_t __cdecl __MINGW_NOTHROW rand_s (unsigned int*);
++_CRTIMP __cdecl __MINGW_NOTHROW  errno_t rand_s (unsigned int*);
 +#endif
 +
- _CRTIMP void* __cdecl __MINGW_NOTHROW calloc (size_t, size_t) __MINGW_ATTRIB_MALLOC;
- _CRTIMP void* __cdecl __MINGW_NOTHROW malloc (size_t) __MINGW_ATTRIB_MALLOC;
- _CRTIMP void* __cdecl __MINGW_NOTHROW realloc (void*, size_t);
---- lib/lib32/msvcrt.def.in	2013-08-31 12:45:45.477904906 +0200
-+++ lib/lib32/msvcrt.def.in	2013-08-31 12:47:45.044353824 +0200
-@@ -637,6 +637,7 @@
- qsort
- raise
- rand
-+rand_s
- realloc
- remove
- rename
+ _CRTIMP __cdecl __MINGW_NOTHROW  void *calloc (size_t, size_t) __MINGW_ATTRIB_MALLOC;
+ _CRTIMP __cdecl __MINGW_NOTHROW  void *malloc (size_t) __MINGW_ATTRIB_MALLOC;
+ _CRTIMP __cdecl __MINGW_NOTHROW  void *realloc (void *, size_t);

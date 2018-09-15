@@ -1,0 +1,38 @@
+--- mingwrt-5.0.2/Makefile.in.orig	2018-09-14 22:21:14.896993894 +0200
++++ mingwrt-5.0.2/Makefile.in	2018-09-14 22:24:22.153658420 +0200
+@@ -222,7 +222,7 @@
+ # of the following enumerated versions from the MSVC suite.
+ #
+ msvcrt_versions := 70 71 80 90 100
+-msvcrt_version_script = echo $1 | awk '\
++msvcrt_version_script = echo $1 | gawk '\
+   { printf "0x%03d00000", gensub( "^[^1-9]*([0-9]*).*", "\\\\1", 1 ) \
+   }'
+ 
+@@ -232,7 +232,7 @@
+        $(AR) $(ARFLAGS) $1 $(call extra_objects_filter,$2); \
+      }
+ 
+-msvcrt_dllname_script = echo $1 | awk '\
++msvcrt_dllname_script = echo $1 | gawk '\
+   /^c/{ print "crtdll.dll" } \
+   /^m/{ ext = gsub( "^.*d$$", "&" ) ? "d.dll" : ".dll"; \
+ 	printf "msvcr%s%s", gsub( "^[^1-9]*[0-9]+.*", "&" ) \
+@@ -529,7 +529,7 @@
+ # Makefile.stub, by processing each of their defining header files
+ # through the following awk script...
+ #
+-jmpstub_awk_script = test -z "$1" || awk '\
++jmpstub_awk_script = test -z "$1" || gawk '\
+   BEGIN { \
+     symbol = "([A-Z_a-z][A-Z_a-z0-9]*)"; \
+     fmt = "\nlib%s.a: %s\n%s: jmpstub.sx\n\t$$(COMPILE.sx) %s -o $$@ $$^\n"; \
+@@ -552,7 +552,7 @@
+ # ...while this establishes the dependencies which apply for each
+ # of those in the LIBIMPL class.
+ #
+-libimpl_awk_script = test -z "$1" || awk '\
++libimpl_awk_script = test -z "$1" || gawk '\
+   BEGIN { \
+     symbol = "([A-Z_a-z][A-Z_a-z0-9]*)"; \
+     fmt = "\nlib%s.a: %s\n%s.libimpl: %s\n"; \
