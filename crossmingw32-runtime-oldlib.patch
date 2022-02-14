@@ -1,0 +1,29 @@
+--- mingwrt-5.4.2/include/stdlib.h.orig	2021-04-11 20:05:19.000000000 +0200
++++ mingwrt-5.4.2/include/stdlib.h	2022-02-14 20:44:09.587661665 +0100
+@@ -564,6 +564,7 @@ _CRTIMP __cdecl __MINGW_NOTHROW  void *m
+ _CRTIMP __cdecl __MINGW_NOTHROW  void *realloc (void *, size_t);
+ _CRTIMP __cdecl __MINGW_NOTHROW  void free (void *);
+ 
++#ifndef __MINGW_OLD_MEMAPI__
+ /* The following pair of MinGW alternatives to realloc() and free() are
+  * always suitable as substitutes for their MSVCRT.DLL counterparts; the
+  * advantage of such substitutions is that these alternatives are able to
+@@ -641,6 +642,8 @@ int posix_memalign (void **__p, size_t _
+ }
+ #endif	/* POSIX.1-2001 */
+ 
++#endif  /* __MINGW_OLD_MEMAPI__ */
++
+ /* bsearch() and qsort() are declared both here, in <stdlib.h>, and in
+  * non-ANSI header <search.h>; we reproduce these declarations in both,
+  * with no attempt to guard them, so the compiler may verify that they
+--- mingwrt-5.4.2/mthr.c.orig	2022-02-14 20:44:29.520887011 +0100
++++ mingwrt-5.4.2/mthr.c	2022-02-14 20:44:32.267538798 +0100
+@@ -18,6 +18,7 @@
+  *
+  */
+ 
++#define __MINGW_OLD_MEMAPI__ 1
+ #define WIN32_LEAN_AND_MEAN
+ #include <windows.h>
+ #undef WIN32_LEAN_AND_MEAN

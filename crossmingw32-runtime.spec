@@ -1,24 +1,26 @@
 Summary:	MinGW32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi MinGW32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
-Version:	5.0.2
+Version:	5.4.2
 Release:	1
 Epoch:		1
 License:	BSD-like
 Group:		Development/Libraries
-Source0:	http://downloads.sourceforge.net/mingw/mingwrt-%{version}-mingw32-src.tar.xz
-# Source0-md5:	9865c83624b0e80178fdc709ebbc5e15
+#Source0Download: https://osdn.net/projects/mingw/releases/
+Source0:	https://osdn.net/projects/mingw/downloads/74925/mingwrt-%{version}-mingw32-src.tar.xz
+# Source0-md5:	09f7ed7f4b134448ec4f9112f8a241f5
 Patch0:		%{name}-gawk.patch
 Patch1:		%{name}-stdinc.patch
-# http://sourceforge.net/p/mingw/bugs/2122/, adapted for 5.0.x, change errno_t header to <sys/types.h>
-Patch2:		rand_s-mingw.patch
-URL:		http://www.mingw.org/
+Patch2:		%{name}-oldlib.patch
+URL:		https://osdn.net/projects/mingw/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake
 BuildRequires:	crossmingw32-binutils
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-w32api >= 1:%{version}
 BuildRequires:	dos2unix
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires:	crossmingw32-binutils >= 2.15.91.0.2-2
 Requires:	crossmingw32-w32api >= 1:%{version}
 Obsoletes:	crossmingw32-platform
@@ -31,7 +33,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_dlldir			/usr/share/wine/windows/system
 
 # strip fails on static COFF files
-%define		no_install_post_strip 1
+%define		no_install_post_strip	1
+%define		_enable_debug_packages	0
 
 # -z options are invalid for mingw linker, most of -f options are Linux-specific
 %define		filterout_ld	-Wl,-z,.*
@@ -77,10 +80,10 @@ Biblioteka uruchomieniowa MingW32 DLL dla Windows.
 dos2unix Makefile.in configure.ac */Makefile.in
 %patch0 -p1
 %patch1 -p1
-%patch2 -p0
+%patch2 -p1
 
 %build
-cp %{_includedir}/w32api.h w32api.h.in
+cp -p %{_includedir}/w32api.h w32api.h.in
 cp /usr/share/automake/config.sub .
 %{__autoconf}
 ./configure \
@@ -88,14 +91,14 @@ cp /usr/share/automake/config.sub .
 	--libdir=%{_libdir} \
 	--host=%{target} \
 	--build=%{_target_platform}
-%{__make} -j1
+
+%{__make} -j1 all all-optional-dlls \
+	w32api_srcdir=%{_prefix}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-# makefile expects dir before creating it
-#install -d $RPM_BUILD_ROOT%{_includedir}
 
-%{__make} -j1 install \
+%{__make} -j1 install install-optional-dlls \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
@@ -113,6 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CONTRIBUTORS ChangeLog DISCLAIMER README TODO readme.txt
 %{_includedir}/_mingw.h
+%{_includedir}/alloca.h
 %{_includedir}/assert.h
 %{_includedir}/complex.h
 %{_includedir}/conio.h
@@ -172,10 +176,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libcrtdll.a
 %{_libdir}/libgmon.a
 %{_libdir}/libm.a
-%{_libdir}/libmingw*.a
+%{_libdir}/libmemalign.a
+%{_libdir}/libmingw32.a
+%{_libdir}/libmingwex.a
+%{_libdir}/libmingwex.dll.a
+%{_libdir}/libmingwthrd.a
+%{_libdir}/libmingwthrd_old.a
 %{_libdir}/libmoldname*.a
 %{_libdir}/libmsvcr*.a
 
 %files dll
 %defattr(644,root,root,755)
 %{_dlldir}/mingwm10.dll
+%{_dlldir}/libmingwex-4.dll
