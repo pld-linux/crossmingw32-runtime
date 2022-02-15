@@ -12,6 +12,7 @@ Source0:	https://osdn.net/projects/mingw/downloads/74925/mingwrt-%{version}-ming
 Patch0:		%{name}-gawk.patch
 Patch1:		%{name}-stdinc.patch
 Patch2:		%{name}-oldlib.patch
+Patch3:		%{name}-memalign-includes.patch
 URL:		https://osdn.net/projects/mingw/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake
@@ -81,6 +82,7 @@ dos2unix Makefile.in configure.ac */Makefile.in
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 cp -p %{_includedir}/w32api.h w32api.h.in
@@ -103,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
 %{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+
+# required by <_mingw.h>, missing from install
+cp -p features.h $RPM_BUILD_ROOT%{_includedir}
 
 %if %{!?debug:1}0
 %{target}-strip $RPM_BUILD_ROOT%{_dlldir}/*.dll
@@ -129,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/errno.h
 %{_includedir}/excpt.h
 %{_includedir}/fcntl.h
+%{_includedir}/features.h
 %{_includedir}/fenv.h
 %{_includedir}/float.h
 %{_includedir}/getopt.h
