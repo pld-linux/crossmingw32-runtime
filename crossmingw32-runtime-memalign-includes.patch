@@ -1,0 +1,11 @@
+--- mingwrt-5.4.2/Makefile.in.orig	2022-02-14 20:44:45.490215326 +0100
++++ mingwrt-5.4.2/Makefile.in	2022-02-15 18:59:34.887075823 +0100
+@@ -453,7 +453,7 @@ LIBMINGWEX_MEMALIGN += aligned-realloc m
+ LIBMINGWEX_MEMALIGN_OBJECTS = $(addsuffix .$(OBJEXT),$(LIBMINGWEX_MEMALIGN))
+ 
+ $(LIBMINGWEX_MEMALIGN_OBJECTS): %.$(OBJEXT): memalign.c
+-	$(CC) -c $(CFLAGS) -D__mingw_$(subst -,_,$*)_case $< -o $@
++	$(CC) -c $(CFLAGS) $(INCLUDES) $(NTDDI_VERSION_SPEC) -D__mingw_$(subst -,_,$*)_case $< -o $@
+ 
+ libmingwex.a: $(LIBMINGWEX_MEMALIGN_OBJECTS)
+ 
