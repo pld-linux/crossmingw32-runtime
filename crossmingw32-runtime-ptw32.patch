@@ -1,0 +1,23 @@
+--- mingwrt-5.4.2/include/errno.h.orig	2020-03-11 21:42:26.000000000 +0100
++++ mingwrt-5.4.2/include/errno.h	2023-04-27 20:17:20.898391793 +0200
+@@ -152,20 +152,4 @@ _END_C_DECLS
+ 
+ #endif	/* ! RC_INVOKED && !__ASSEMBLY__ */
+ #endif	/* ! (_ERRNO_H && _STDLIB_H) */
+-
+-#if defined _ERRNO_H && defined __PTW32_H && ! defined _PTW32_ERRNO_H
+-/* As a courtesy to users of pthreads-win32, ensure that the appropriate
+- * additional error codes, as defined by that package, are automatically
+- * defined when <errno.h> is included AFTER any pthreads-win32 header; a
+- * complementary hook, in <_ptw32.h>, ensures that such additional error
+- * codes are defined, if <errno.h> is included BEFORE any pthreads-win32
+- * header is subsequently included.
+- *
+- * NOTE: this assumes pthreads-win32-2.10 or later, with corresponding
+- * MinGW.org patches applied; it will favour "ptw32_errno.h" installed
+- * in the mingwrt system include directory.
+- */
+-#include "ptw32_errno.h"
+-
+-#endif	/* __PTW32_H */
+ #endif	/* !_ERRNO_H: $RCSfile: errno.h,v $: end of file */

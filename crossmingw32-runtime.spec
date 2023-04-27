@@ -2,7 +2,7 @@ Summary:	MinGW32 Binary Utility Development Utilities - runtime libraries
 Summary(pl.UTF-8):	Zestaw narzędzi MinGW32 - biblioteki uruchomieniowe
 Name:		crossmingw32-runtime
 Version:	5.4.2
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD-like
 Group:		Development/Libraries
@@ -13,6 +13,7 @@ Patch0:		%{name}-gawk.patch
 Patch1:		%{name}-stdinc.patch
 Patch2:		%{name}-oldlib.patch
 Patch3:		%{name}-memalign-includes.patch
+Patch4:		%{name}-ptw32.patch
 URL:		https://osdn.net/projects/mingw/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake
@@ -24,7 +25,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	crossmingw32-binutils >= 2.15.91.0.2-2
 Requires:	crossmingw32-w32api >= 1:%{version}
-Obsoletes:	crossmingw32-platform
+Obsoletes:	crossmingw32-platform < 2.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		target			i386-mingw32
@@ -83,6 +84,7 @@ dos2unix Makefile.in configure.ac */Makefile.in
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 cp -p %{_includedir}/w32api.h w32api.h.in
