@@ -31,8 +31,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		target			i386-mingw32
 %define		target_platform		i386-pc-mingw32
-%define		_prefix			/usr/%{target}
+
+%define		_sysprefix		/usr
+%define		_prefix			%{_sysprefix}/%{target}
 %define		_libdir			%{_prefix}/lib
+%define		_docdir			%{_sysprefix}/share/doc
 %define		_dlldir			/usr/share/wine/windows/system
 
 # strip fails on static COFF files
