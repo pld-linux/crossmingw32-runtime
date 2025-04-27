@@ -80,11 +80,11 @@ Biblioteka uruchomieniowa MingW32 DLL dla Windows.
 %prep
 %setup -q -n mingwrt-%{version}
 dos2unix Makefile.in configure.ac */Makefile.in
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 
 %build
 cp -p %{_includedir}/w32api.h w32api.h.in
