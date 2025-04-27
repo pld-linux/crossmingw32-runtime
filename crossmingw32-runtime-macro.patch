@@ -1,0 +1,14 @@
+--- mingwrt-5.4.2/include/stdlib.h.orig	2025-04-27 21:32:04.080344089 +0200
++++ mingwrt-5.4.2/include/stdlib.h	2025-04-27 21:34:26.189574218 +0200
+@@ -541,7 +541,11 @@ _CRTIMP __cdecl __MINGW_NOTHROW  int ran
+ #endif	/* Win-Vista || MSVCR80.DLL || later */
+ #endif	/* _CRT_RAND_S enabled */
+ 
++#pragma push_macro("abort")
++#undef abort
+ _CRTIMP __cdecl __MINGW_NOTHROW  void abort (void) __MINGW_ATTRIB_NORETURN;
++#pragma pop_macro("abort")
++
+ _CRTIMP __cdecl __MINGW_NOTHROW  void exit (int) __MINGW_ATTRIB_NORETURN;
+ 
+ /* Note: this is in startup code, not imported directly from the runtime DLL
